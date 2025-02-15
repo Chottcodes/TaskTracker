@@ -1,0 +1,40 @@
+body{
+    font-family: sans-serif;
+    background-color: black;
+    color: antiquewhite;
+}
+.title-container{
+    background-color: black;
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+.list-Containers{
+   
+    height: 500px;
+    width: 90%;
+    display: flex;
+    margin: auto;
+}
+.To-Do-Container{
+    width: 35%;
+    height: 100%;
+    
+}
+.In-Progress-Container{
+    width: 35%;
+    height: 100%;
+    
+}
+.Completed{
+    width: 35%;
+    height: 100%;
+    
+}

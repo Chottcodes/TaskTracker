@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/stylesheet.css" />
+    <link rel="stylesheet" href="./src/output.css" />
+    <title>Task Tracker</title>
+  </head>
+  <body>
+    <div class="title-container">
+      <h1>Task Tracker</h1>
+    </div>
+    <div class="container">
+      <h1>To-do</h1>
+      <h1>In Progress</h1>
+      <h1>Completed</h1>
+    </div>
+
+    <!-- container list -->
+    <div class="list-Containers overflow-y-auto relative">
+      <div class="To-Do-Container"><ul class="flex flex-col gap-2 w-[70%]" id="ToDoUL">
+      </ul></div>
+      <div class="In-Progress-Container">
+        <ul id="In-Progress-List-UL"></ul>
+      </div>
+      <div class="Completed">
+        <ul id="Completed-List-UL"></ul>
+      </div>
+
+      <div id="edit-container" class="absolute hidden bg-amber-950 rounded-lg border border-white w-[30%] h-[300px] top-[20%] left-[40%]">
+        <div class="text-white flex flex-col gap-10">
+            <input id="editName" type="text" placeholder="Update Name">
+            <input id="editDescription" type="text" placeholder="Update Description">
+            <input id="editDate" type="date" placeholder="Update Date">
+            <select name="edit Priority" id="editPriority">
+                <option class="bg-black" value="Low">Low</option>
+                <option class="bg-black" value="Medium">Medium</option>
+                <option class="bg-black" value="High">High</option>
+            </select>
+            <select name="" id="changeStatus">
+                <option class="bg-black" value="In progress">In progress</option>
+                <option class="bg-black" value="Completed">Completed</option>
+            </select>
+            <div class=" m-auto w-[70%] flex justify-between">
+            <button id="update" class="border border-green-500 rounded-lg">Update</button>
+            <button id="remove" class="border border-red-500 rounded-lg">Remove</button>
+            
+        </div>
+            
+        </div>
+      </div>
+
+    </div>
+    <div class="m-auto w-[80%] h-[50%] flex justify-center">
+      <h1>Add to task bar</h1>
+    </div>
+
+    <!-- input -->
+    <div class="h-20 w-full flex justify-evenly text-lg mt-[2%]">
+      <input
+        id="Task-Name"
+        type="text"
+        class="border border-white h-[50%]"
+        placeholder="Task Name"
+      />
+      <input
+        id="Task-Description"
+        type="text"
+        class="border border-white w-[20%] h-[50%]"
+        placeholder="Task Description"
+      />
+      <input id="calender-input" type="date" class=" h-[50%] text-white">
+      <div class="w-[15%]">
+        <div class="flex justify-center"><h1>Priority Status</h1></div>
+        <div class="flex justify-evenly">
+          <select id="Priority-Selection">
+            <option class="bg-black " value="Low">Low</option>
+            <option class="bg-black" value="Medium">Medium</option>
+            <option class="bg-black" value="High">High</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="submit-task" class="border w-[10%] h-[50%] border-white rounded-2xl">
+        Add task
+      </button>
+    </div>
+
+
+    <script type="module" src="./scripts/scripts.js"></script>
+    <script type="module" src="./scripts/editList.js"></script>
+  </body>
+</html>

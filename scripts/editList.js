@@ -1,7 +1,7 @@
 //retrieve the local storage data
-const updateBTN = document.getElementById("update");
-const removeBTN = document.getElementById("remove");
+import { getLocalStorage } from "./scripts.js";
 const changeStatus = document.getElementById("changeStatus").value;
+
 
 const editData = (data, taskID) => {
   const editName = document.getElementById("editName").value,
@@ -9,12 +9,12 @@ const editData = (data, taskID) => {
     editDate = document.getElementById("editDate").value,
     editPriority = document.getElementById("editPriority").value;
     let inputArr=[editName,editDescription,editDate,editPriority];
-    // for(let i = 0;i<inputArr.length;i++){
-    //     if(inputArr[i]==="")
-    //     {
+    for(let i = 0;i<inputArr.length;i++){
+        if(inputArr[i]==="")
+        {
 
-    //     }
-    // }
+        }
+    }
   let taskIndex = data.findIndex((d) => d.id === taskID);
   if (taskIndex !== -1) {
     data[taskIndex].name = editName;
@@ -30,4 +30,6 @@ const removeObject = (data,taskID)=>{
     const updatedData = data.filter(task => task.id !== taskID);
     localStorage.setItem("task", JSON.stringify(updatedData));
 }
+
+
 export { editData, removeObject };

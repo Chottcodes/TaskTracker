@@ -12,6 +12,7 @@ const editContainer = document.getElementById("edit-container");
 const updateBTN = document.getElementById("update");
 const removeBTN = document.getElementById("remove");
 const changeStatus = document.getElementById("changeStatus").value;
+
 let taskId;
 
 
@@ -21,14 +22,10 @@ submitButton.addEventListener("click", () => {
   const PrioritySelection = document.getElementById("Priority-Selection").value;
   const dateInput = document.getElementById("calender-input").value;
   let taskArr = JSON.parse(localStorage.getItem("task")) || [];
-  let object = createTaskObject(
-    taskName,
-    taskDescription,
-    PrioritySelection,
-    dateInput
-  );
+  let object = createTaskObject(taskName,taskDescription,PrioritySelection,dateInput);
   taskArr.push(object);
   localStorage.setItem("task", JSON.stringify(taskArr));
+
   displayTheData();
 });
 const createTaskObject = (name, description, priority, date) => {
@@ -48,7 +45,8 @@ const getLocalStorage = () => {
 };
 const displayTheData = () => {
   const getArr = getLocalStorage();
-  getArr.map((data) => {
+  todolistSectionUl.innerHTML = ''
+  getArr.forEach((data) => {
     let{id}=data
     taskId=id
     
@@ -84,5 +82,5 @@ updateBTN.addEventListener("click",()=>{
     
 })
 
-displayTheData()
+displayTheData();
 export { getLocalStorage };

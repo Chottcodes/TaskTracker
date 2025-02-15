@@ -27,7 +27,7 @@ const editData = (data, taskID) => {
 };
 //make a function to remove task from local storage
 const removeObject = (data,taskID)=>{
-    data.filter(data => data.id !== taskID )
-    localStorage.setItem("task",JSON.stringify(data));
+    const updatedData = data.filter(task => task.id !== taskID);
+    localStorage.setItem("task", JSON.stringify(updatedData));
 }
 export { editData, removeObject };

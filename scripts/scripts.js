@@ -80,8 +80,12 @@ updateBTN.addEventListener("click",()=>{
 
     editData(getLocalStorage(),taskId)
     displayTheData()
-    
 })
+removeBTN.addEventListener("click",()=>{
+    removeObject(getLocalStorage(),taskId)
+    displayTheData()
+})
+
 
 displayTheData();
 export { getLocalStorage };

@@ -6,23 +6,29 @@
 import { editData, removeObject } from "./editList.js";
 const submitButton = document.getElementById("submit-task");
 let todolistSectionUl = document.getElementById("ToDoUL");
-let taskNameTitle=document.getElementById("task-Name")
+let taskNameTitle = document.getElementById("task-Name");
 const editContainer = document.getElementById("edit-container");
 const updateBTN = document.getElementById("update");
 const removeBTN = document.getElementById("remove");
 const progressSectionUl = document.getElementById("In-Progress-List-UL");
 const completedsectionUl = document.getElementById("Completed-List-UL");
 let taskId;
+
 submitButton.addEventListener("click", () => {
   const taskName = document.getElementById("Task-Name").value;
   const taskDescription = document.getElementById("Task-Description").value;
   const PrioritySelection = document.getElementById("Priority-Selection").value;
   const dateInput = document.getElementById("calender-input").value;
   let taskArr = JSON.parse(localStorage.getItem("task")) || [];
-  let object = createTaskObject(taskName,taskDescription,PrioritySelection,dateInput);
+  let object = createTaskObject(
+    taskName,
+    taskDescription,
+    PrioritySelection,
+    dateInput
+  );
   taskArr.push(object);
   localStorage.setItem("task", JSON.stringify(taskArr));
-  displayTheData( getLocalStorage("task"),todolistSectionUl);
+  displayTheData(getLocalStorage("task"), todolistSectionUl);
 });
 const createTaskObject = (name, description, priority, date) => {
   const task = {
@@ -39,14 +45,11 @@ const getLocalStorage = (name) => {
   const object = JSON.parse(getArr);
   return object;
 };
-const displayTheData = (getArr,element) => {
-    
-  
-  element.innerHTML = ''
-  getArr.forEach((data) => {
-    let{id,name}=data
-    
-    
+const displayTheData = (storagedata, element) => {
+  element.innerHTML = "";
+  storagedata.forEach((data) => {
+    let { id, name } = data;
+
     let li = document.createElement("li");
     let h1 = document.createElement("h1");
     let p = document.createElement("p");
@@ -63,14 +66,10 @@ const displayTheData = (getArr,element) => {
     p.innerHTML = data.description;
     p2.innerHTML = data.date;
     li.addEventListener("click", () => {
-    taskNameTitle.innerHTML=name
+      taskNameTitle.innerHTML = name;
       editContainer.classList.remove("hidden");
-      taskId=id
-        console.log(id)
-    });
-    li.addEventListener("dblclick",()=>{
-        moveTaskToAnotherList(getLocalStorage("task"),"inProgressTasks",id);
-        
+      taskId = id;
+      console.log(id);
     });
     li.appendChild(h1);
     li.appendChild(p);
@@ -78,32 +77,42 @@ const displayTheData = (getArr,element) => {
     element.appendChild(li);
   });
 };
-updateBTN.addEventListener("click",()=>{
-
-    editData(getLocalStorage("task"),taskId)
-    displayTheData(getLocalStorage("task"),todolistSectionUl)
-})
-removeBTN.addEventListener("click",()=>{
-    removeObject(getLocalStorage("task"),taskId)
-    console.log(taskId)
-    displayTheData(getLocalStorage("task"),todolistSectionUl)
-})
-
-const moveTaskToAnotherList = (data,storageName,taskId) => {
-    
-    let taskToMove = data.find(task => task.id === taskId);
-    if(taskToMove)
+updateBTN.addEventListener("click", () => {
+    const changeStatus = document.getElementById("changeStatus").value;
+    if(changeStatus==='In progress'){
+        moveTaskToAnotherList(getLocalStorage("task"),"inProgressTasks",taskId);
+        displayTheData(getLocalStorage("inProgressTasks"),progressSectionUl);
+        removeObject(getLocalStorage("task"),taskId);
+        editContainer.classList.add("hidden");
+    }
+    if(changeStatus==='Completed')
     {
-        let anotherArr = [];
-        anotherArr.push(taskToMove)
-        let{name,description,priority,date}=anotherArr[0];
-        let taskArr = JSON.parse(localStorage.getItem(`${storageName}`)) || [];
-        let obj=createTaskObject(name, description, priority, date);
-        taskArr.push(obj); 
-        localStorage.setItem(`${storageName}`, JSON.stringify(taskArr));   
+        moveTaskToAnotherList(getLocalStorage("task"),"completed",taskId);
+        displayTheData(getLocalStorage("completed"),completedsectionUl);
+        removeObject(getLocalStorage("task"),taskId);
+        editContainer.classList.add("hidden");
     }
     
-   
-  };
-displayTheData(getLocalStorage("task"),todolistSectionUl);
+  editData(getLocalStorage("task"), taskId);
+  displayTheData(getLocalStorage("task"), todolistSectionUl);
+});
+removeBTN.addEventListener("click", () => {
+    displayTheData(getLocalStorage("task"), todolistSectionUl);
+    removeObject(getLocalStorage("task"), taskId);
+  console.log(taskId);
+});
+const moveTaskToAnotherList = (data, storageName, taskId) => {
+  let taskToMove = data.find((task) => task.id === taskId);
+  if (taskToMove) {
+    let anotherArr = [];
+    anotherArr.push(taskToMove);
+    let { name, description, priority, date } = anotherArr[0];
+    let taskArr = JSON.parse(localStorage.getItem(`${storageName}`)) || [];
+    let obj = createTaskObject(name, description, priority, date);
+    taskArr.push(obj);
+    localStorage.setItem(`${storageName}`, JSON.stringify(taskArr));
+  }
+};
+
+displayTheData(getLocalStorage("task"), todolistSectionUl);
 export { getLocalStorage };

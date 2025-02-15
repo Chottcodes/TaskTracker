@@ -79,6 +79,7 @@ const displayTheData = () => {
 updateBTN.addEventListener("click",()=>{
 
     editData(getLocalStorage(),taskId)
+    displayTheData()
     
 })
 
